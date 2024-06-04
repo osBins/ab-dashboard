@@ -1,10 +1,47 @@
 import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
+import Chart from "../../components/chart/ResultInfoChart";
 import List from "../../components/list/List";
+import { config } from "../../config";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 
 const Single = () => {
+  const [experimentData, setExperimentData] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const { expId } = useParams()
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${config.baseURL}/experiment/${expId}`);
+      
+      const start = moment(response.data.startDate).format('D MMMM YYYY - h:mm A')
+      const end = moment(response.data.endDate).format('D MMMM YYYY - h:mm A')
+            
+      response.data.startDate = start
+      response.data.endDate = end
+      setExperimentData(response.data)
+    } 
+    catch (error) {
+      console.error('Nai aaya experiment data:', error);
+    } 
+    finally {
+      setLoading(false); // Set loading state to false regardless of success or error
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className="single">
       <Sidebar />
@@ -12,37 +49,36 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
-            <h1 className="title">Information</h1>
+            <h1 className="title">EXPERIMENT</h1>
             <div className="item">
-              <img
-                className="itemImg"
-                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="avatar"
-              />
+              
               <div className="details">
-                <h1 className="itemTitle">Anna Grey</h1>
+                <h1 className="itemTitle">{experimentData.name}</h1>
                 <div className="detailItem">
-                  <span className="itemKey">Email:</span>
-                  <span className="itemValue">anagrey@gmail.com</span>
+                  <span className="itemKey">ID:</span>
+                  <span className="itemValue">{experimentData.id}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+628908765987</span>
+                  <span className="itemKey">Description:</span>
+                  <span className="itemValue">{experimentData.description}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Adress:</span>
-                  <span className="itemValue">Beverly Hills, California</span>
+                  <span className="itemKey">Goal ID:</span>
+                  <span className="itemValue">{experimentData.goalId}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Country:</span>
-                  <span className="itemValue">Germany</span>
+                  <span className="itemKey">Start:</span>
+                  <span className="itemValue">{experimentData.startDate}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">End:</span>
+                  <span className="itemValue">{experimentData.endDate}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="User Spending (Last 6 Months)" />
+            <Chart aspect={4 / 1} title="Variation Counts" />
           </div>
         </div>
         <div className="bottom">

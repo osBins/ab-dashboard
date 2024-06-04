@@ -1,4 +1,4 @@
-import Chart from "../../components/chart/Chart";
+import Chart from "../../components/chart/ResultInfoChart";
 import Featured from "../../components/featured/Featured";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";

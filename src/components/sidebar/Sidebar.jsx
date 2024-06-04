@@ -44,17 +44,17 @@ const Sidebar = () => {
               <span>Experiments</span>
             </li>
           </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+          <Link to="/goals" style={{ textDecoration: "none" }}>
             <li>
               <Store className="icon" />
               <span>Goals</span>
             </li>
           </Link>
-          <li>
+          {/* <li>
             <CreditCard className="icon" />
             <span>Results</span>
           </li>
-          {/* <li>
+          <li>
             <LocalShipping className="icon" />
             <span>Delivery</span>
           </li>

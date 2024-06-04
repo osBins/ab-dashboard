@@ -1,8 +1,8 @@
-import "./list.scss";
+import "./goal.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Datatable from "../../components/datatable/Datatable";
-const List = () => {
+import Datatable from "../../components/datatable/Goal";
+const GoalList = () => {
   return (
     <div className="list">
       <Sidebar />
@@ -14,4 +14,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default GoalList;

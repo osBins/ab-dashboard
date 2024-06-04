@@ -1,7 +1,8 @@
 import React from "react";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import List from "./pages/list/List";
+import ExperimentList from "./pages/experiment/experiment";
+import List from "./pages/goals/Goal"
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { userInput, productInput } from "./formSource";
@@ -21,14 +22,14 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="experiments">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
+              <Route index element={<ExperimentList />} />
+              <Route path=":expId" element={<Single />} />
               <Route
                 path="new"
                 element={<New datas={userInput} title="Create New Experiment" />}
               />
             </Route>
-            <Route path="products">
+            <Route path="goals">
               <Route index element={<List />} />
               <Route path=":productId" element={<Single />} />
               <Route
